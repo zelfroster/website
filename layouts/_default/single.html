@@ -1,0 +1,21 @@
+{{ define "main" }}
+<main>
+  <article id="content">
+    <header>
+      <h1 id="title">{{ .Title }}</h1>
+      <div id="meta">
+        <p id="date">
+          <b>Posted:</b>
+          {{ .Date.Format "Jan 2, 2006" }} &middot;
+          <b id="wordcount">{{ div .WordCount 130 }} minutes read</b>
+        </p>
+      </div>
+    </header>
+    {{ with .Content }}
+    {{ . | replaceRE "(<h[2-4] id=\"([^\"]+)\".+)(</h[2-4]+>)" `${1}<a
+      href="#${2}" class="hanchor" ariaLabel="Anchor"> # &nbsp;</a>${3}`| safeHTML }}
+    {{ end }}
+    <footer>{{ partial "pagination" . }}</footer>
+  </article>
+</main>
+{{ end }}

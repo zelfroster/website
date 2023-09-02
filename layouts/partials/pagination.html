@@ -1,0 +1,7 @@
+<div class="pagination">
+  {{ with .PrevInSection }}
+  <a class="previous" href="{{ .Permalink }}"><< {{ .Title | truncate 30 }}</a>
+  {{ end }} {{ with .NextInSection }}
+  <a class="next" href="{{ .Permalink }}"> {{ .Title | truncate 30 }} >></a>
+  {{ end }}
+</div>

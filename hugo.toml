@@ -1,0 +1,27 @@
+baseURL = 'https://zelfroster.com/'
+languageCode = 'en-us'
+title = 'Zelfroster'
+enableRobotsTXT = true
+rssLimit = 10
+disableKinds = ["RSS", "sitemap"]
+[outputs]
+  home = [ "HTML", "RSS", "SITEMAP"]
+  section = [ "HTML" ]
+  page = [ "HTML" ]
+[menu]
+[[menu.main]]
+  pageRef = '/about'
+  weight = 10
+[[menu.main]]
+  pageRef = '/blog'
+  weight = 20
+[params]
+  author = 'zelfroster'
+  description = "Zelfroster's personal site"
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = false
+  [markup.highlight]
+    lineNos = true
+    lineNumbersInTable = false
+    style = 'algol'

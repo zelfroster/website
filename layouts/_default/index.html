@@ -1,0 +1,37 @@
+{{ define "main" }}
+<main class="homepage">
+  <h1 class="welcome">Welcome to My Little Corner of Internet</h1>
+  <section class="latest-article">
+    <h2>Latest Articles</h2>
+    {{ range (readDir "content/") }} {{ if .IsDir }}
+    <ul class="article-list">
+      {{ $path := printf "%s/" .Name }} {{ range first 5 (where (where
+      $.Site.RegularPages "Type" "blog") "File.Dir" $path) }}
+      <li>
+        <div class="item">
+          <a href="{{.Permalink}}">{{.Title}}</a>
+          <p>{{ .Date.Format "2/8/2006" }}</p>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+    {{ end }} {{ end }}
+  </section>
+  <section class="contact" id="contact">
+    <label for="contact" class="contact-label">Contact Details</label>
+    <div class="contact-socials">
+      <a href="https://discord.com/users/403350472636891156" target="_blank"
+        >Discord</a
+      >
+      <a href="https://github.com/zelfroster" target="_blank">Github</a>
+      <a href="https://twitter.com/zelfroster" target="_blank">Twitter</a>
+      <a href="https://linkedin.com/in/zelfroster" target="_blank">LinkedIn</a>
+    </div>
+    <p>
+      <b>Email: </b
+      ><a href="mailto:zelfroster@gmail.com">zelfroster@gmail.com</a>
+    </p>
+    <p><b>PGP Key: </b><a href="/publickey.txt">0x6FB38AEA9CFC4A43</a></p>
+  </section>
+</main>
+{{ end }}
