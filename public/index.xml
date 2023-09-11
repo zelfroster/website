@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xml:base="https://zelfroster.com/"><channel><title>Zelfroster</title><link>https://zelfroster.com/</link><description>Recent content on Zelfroster</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 01 Aug 2023 14:11:56 +0530</lastBuildDate><atom:link href="https://zelfroster.com/index.xml" rel="self" type="application/rss+xml"/><item><title>GSoC’23 : Implementation of Web Interface of Retroshare - Part 2</title><link>https://zelfroster.com/blog/gsoc-rswebui-2/</link><pubDate>Thu, 10 Aug 2023 13:58:18 +0530</pubDate><guid>https://zelfroster.com/blog/gsoc-rswebui-2/</guid><description>&lt;p>Hello again folks 👋 ,
+If this is your first time here, then consider reading &lt;a href="https://blog.freifunk.net/2023/05/22/gsoc23-implementation-of-webui-of-retroshare/">Part 1&lt;/a> of this blog.&lt;/p>
+&lt;blockquote>
+&lt;p>This is a mirror of the &lt;a href="https://blog.freifunk.net/2023/07/08/gsoc23-implementation-of-web-interface-of-retroshare-part-2/">post&lt;/a> which I wrote recently on Freifunk.&lt;/p>
+&lt;/blockquote>
+&lt;p>Now, let’s continue.
+The first phase of GSoC has been amazing, up until now. I was able to implement
+a lot of features, fixed bugs and issues, faced difficulties, got stuck and
+learned a lot. I am going to discuss my journey so far, so buckle up your seat
+belts.&lt;/p>
+&lt;h2 id="progress-on-the-webui">Progress on the WebUI&lt;/h2>
+&lt;p>I have been able to improve the Web Interface of Retroshare very much in terms
+of usability and a better UI. All thanks to my mentors and the community
+members.
+&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/Retroshare2-1536x841.png" alt="Retroshare HomePage">
+Here is what the homepage looks right now.&lt;/p>
+&lt;h3 id="file-search-feature">File Search feature&lt;/h3>
+&lt;p>During the start of the Coding Period, I was already working on implementing the
+File Search feature, so naturally It was completed in the first week of GSoC
+itself. This was a very difficult feature to implement as there were only a few
+options on how to do it correctly.&lt;/p>
+&lt;p>Previously, the file search results data was sent as a response to the request
+made to the endpoint &lt;code>/rsFiles/turtleSearchRequest&lt;/code>. So, I thought of using
+&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/EventSource">Event Source&lt;/a>, as It would create a persistent connection to get the data in
+stream. But it needed its own auth headers to be used properly. Also, there was
+some issue in the format of response coming from the backend, which was causing
+webui to crash. I had a discussion upon this with the mentors in the &lt;a href="https://github.com/RetroShare/RSNewWebUI/issues/73">issue&lt;/a> I
+created on GitHub.&lt;/p>
+&lt;p>Later the mentors discussed and decided that It would be better to make the
+results of file search as a stream of events which would be then captured at the
+frontend side and displayed. As there was already a way to handle events, It was
+not much of a problem. But the real issue was to update them in the UI after
+capturing them, as I was not sure how to do that in Mithril.js, and this was a
+perfect opportunity to learn something new.&lt;/p>
+&lt;p>And after some research, I found out that &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy&lt;/a> in JavaScript can be used to
+check for any change in the objects made using the handler defined in
+&lt;code>eventQueue&lt;/code>. And, then I could manually trigger a re-render using &lt;code>m.redraw()&lt;/code> in
+mithril.js to update the results in the UI.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">// Custom Proxy code
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">&lt;/span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> createArrayProxy = (arr, onChange) =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> &lt;span style="font-weight:bold;text-decoration:underline">new&lt;/span> &lt;span style="font-weight:bold;font-style:italic">Proxy&lt;/span>(arr, {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4&lt;/span>&lt;span> set: (target, property, value, reciever) =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> success = Reflect.set(target, property, value, reciever);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">if&lt;/span> (success &amp;amp;&amp;amp; onChange) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7&lt;/span>&lt;span> onChange();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8&lt;/span>&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> success;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10&lt;/span>&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11&lt;/span>&lt;span> });
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12&lt;/span>&lt;span>};
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13&lt;/span>&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14&lt;/span>&lt;span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> createProxy = (obj, onChange) =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> &lt;span style="font-weight:bold;text-decoration:underline">new&lt;/span> &lt;span style="font-weight:bold;font-style:italic">Proxy&lt;/span>(obj, {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16&lt;/span>&lt;span> get: (target, property, reciever) =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> value = Reflect.get(target, property, reciever);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> &lt;span style="font-weight:bold;text-decoration:underline">typeof&lt;/span> value === &lt;span style="color:#666;font-style:italic">&amp;#34;object&amp;#34;&lt;/span> &amp;amp;&amp;amp; value !== &lt;span style="font-weight:bold;text-decoration:underline">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19&lt;/span>&lt;span> ? &lt;span style="font-weight:bold;font-style:italic">Array&lt;/span>.isArray(value)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20&lt;/span>&lt;span> ? createArrayProxy(value, onChange)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21&lt;/span>&lt;span> : createProxy(value, onChange)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22&lt;/span>&lt;span> : value;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23&lt;/span>&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24&lt;/span>&lt;span> set: (target, property, value, reciever) =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> success = Reflect.set(target, property, value, reciever);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">if&lt;/span> (success &amp;amp;&amp;amp; onChange) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27&lt;/span>&lt;span> onChange();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28&lt;/span>&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> success;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30&lt;/span>&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31&lt;/span>&lt;span> });
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32&lt;/span>&lt;span>};
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33&lt;/span>&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34&lt;/span>&lt;span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> proxyObj = createProxy({}, () =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35&lt;/span>&lt;span> m.redraw();
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36&lt;/span>&lt;span>});
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>So, after some head banging and googling, I was able to implement this feature.
+Furthermore, I improved the small issues in next iterations. You can see the
+merged PR &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/74">here&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-8-1536x841.png" alt="RetroShare File Search">
+This is how the File Search looks currently.&lt;/p>
+&lt;h3 id="config-mail">Config Mail&lt;/h3>
+&lt;p>After that, I started working on the config section, in which I implemented the
+feature to create and manage custom tags for mails in the mail config. The PR I
+raised is &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/75">here&lt;/a>.
+&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-9-1536x841.png" alt="RetroShare Config Mail">&lt;/p>
+&lt;h3 id="config-network">Config Network&lt;/h3>
+&lt;p>Then, I implemented some missing features in existing section of Config section.
+In the Network config, some options weren’t working. So, after discussing with
+my mentor, I implemented the Hidden Network Configuration for TOR/I2P Socks
+Proxy &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/76">here&lt;/a>.
+&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-10-1536x841.png" alt="RetroShare Config Network">&lt;/p>
+&lt;h3 id="config-files">Config Files&lt;/h3>
+&lt;p>I implemented the missing options as well as fixed the options which were not
+working in the config files section also for this, I implemented the
+&lt;code>getQueueSize()&lt;/code> function in libretroshare.
+&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-12-1024x560.png" alt="RetroShare Config Files">&lt;/p>
+&lt;p>By this time, I was also getting a hang of How things were working internally in
+the &lt;a href="https://github.com/RetroShare/libretroshare">libretroshare&lt;/a>. And, my mentor &lt;a href="https://github.com/csoler">Cyril Soler&lt;/a> motivated me and supported me to
+start writing code in libretroshare for Doxygen to generate the JSON API for the
+required endpoint. I raised three PRs in total, where I also implemented an
+endpoint in the actual &lt;code>C++&lt;/code> code.&lt;/p>
+&lt;p>Honestly, this was more satisfying to be able to do this rather than writing
+code for the webui. You can view all of my libretroshare PRs &lt;a href="https://github.com/RetroShare/libretroshare/pulls?q=is%3Apr+author%3Azelfroster+is%3Aclosed">here&lt;/a>.&lt;/p>
+&lt;h3 id="fix-ui-of-whole-interface">Fix UI of whole Interface&lt;/h3>
+&lt;p>This was a very big task but didn’t take that long, I did it gradually in small
+bits. Improved the whole UI of the web interface, and it looks much better now.
+See all the changes made in this PR &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/77">here&lt;/a>.
+I would not include any screenshots here as It would be too much.&lt;/p>
+&lt;h3 id="fix-working-and-ui-of-mail-composer">Fix working and UI of mail Composer&lt;/h3>
+&lt;p>Of all the features I have implemented so far, none of this were this confusing
+where I was fighting with the code. I was stuck trying this on my own for two
+days, since the code I wrote was fine on its own. But, there was something which
+was causing an issue, and I was not able to understand what it was. So finally,
+I asked for help from a community member, &lt;a href="https://github.com/rottencandy">M. Saud&lt;/a>. He is also the code reviewer
+of all of my PRs, since as far as I know he is the only JS dev in RSWebUI team.&lt;/p>
+&lt;p>He found the issue and told me some ways It could be done. Those seemed too
+complex to me, I read some mithril.js docs and tried to figure out ways to do
+it. And In the end, I found a very easy way to do it. You can read the
+discussion &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/77#issuecomment-1614640284">here&lt;/a> on GitHub.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-11-1024x560.png" alt="Retroshare Mail Composer">
+This is how the mail composer looks.&lt;/p>
+&lt;p>This PR is related to the mail reply as well, so this is still in the Draft
+version, And I am currently working on it to implement the features. You can see
+it &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/80">here&lt;/a>. Other than this, I have been doing some minor fixes and refactoring in
+the whole webui along with completing the major goals in the timeline.&lt;/p>
+&lt;p>So, this is the progress made in the WebUI until now. And, I have learned and still learning many new things while working on it.&lt;/p>
+&lt;h2 id="whats-next">What&amp;rsquo;s Next?&lt;/h2>
+&lt;p>First, I will finish the &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/80">PR#80&lt;/a> where I have to implement the Reply feature in
+the Mail Section, and then will work on the next set of goals as mentioned in
+the timeline which are :&lt;/p>
+&lt;ul>
+&lt;li>Forums Section
+&lt;ul>
+&lt;li>Implement the remaining features from the Qt app in the forum section.&lt;/li>
+&lt;li>Implement a better layout of the forum and posts view, comment and reply feature etc.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Boards and Channel Section
+&lt;ul>
+&lt;li>Implement the remaining features and make them more user-friendly and easy to use.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Implement a feature for Configuring and Visualizing own shared files with features such as managing shared directories, user permissions etc.&lt;/li>
+&lt;/ul>
+&lt;p>Apart from these goals, I have also discussed with my mentor to work on more
+important issues and necessary features for the upcoming release of the webui.&lt;/p>
+&lt;p>Now, I will see you in the next and final blog of this GSoC series.&lt;/p>
+&lt;p>Thanks for reading and have a great day : )&lt;/p></description></item><item><title>GSoC’23 : Implementation of Web Interface of Retroshare</title><link>https://zelfroster.com/blog/gsoc-rswebui-1/</link><pubDate>Wed, 09 Aug 2023 13:58:16 +0530</pubDate><guid>https://zelfroster.com/blog/gsoc-rswebui-1/</guid><description>&lt;p>Hello folks 👋
+&lt;!-- raw HTML omitted -->
+My proposal has been selected in GSoC by Freifunk for the implementation of Web
+Interface of Retroshare, and I am going to write a bit about it.&lt;/p>
+&lt;blockquote>
+&lt;p>This is a mirror of the &lt;a href="https://blog.freifunk.net/2023/05/22/gsoc23-implementation-of-webui-of-retroshare/">post&lt;/a> which I wrote recently on Freifunk.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="project-context">Project Context&lt;/h2>
+&lt;p>&lt;a href="https://github.com/Retroshare/Retroshare">RetroShare&lt;/a> provides a decentralized, encrypted connection with maximum security
+between nodes where they can chat, share files, mail, etc. It uses GXS (Generic
+eXchange System) that provides asynchronous distribution, authentication,
+privacy, security of generic data. RetroShare is a C++ software program that
+comprises a headless lib called libretroshare. And, this lib helps in making a
+headless server (retroshare-service), a standalone app with a user interface
+built using Qt, an android client and more.&lt;/p>
+&lt;p>Moreover, a web interface has started being developed that allows users to
+control the headless server from their web browsers. The web interface uses an
+automatically generated JSON API. And, It includes all necessary functions to
+send and receive data from the software, communicating with libretroshare.&lt;/p>
+&lt;h2 id="goals-and-deliverables">Goals and Deliverables&lt;/h2>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/05/Retroshare-1-1536x841.png" alt="retroshare-webui">
+This is the homepage of Retroshare’s web interface.&lt;/p>
+&lt;p>The previous GSoC contributors have accomplished &lt;a href="https://blog.freifunk.net/2022/09/06/completing-the-retroshare-web-interface-gsoc22-final-report/">astonishing work&lt;/a> on the WebUI,
+yet there remain many functionalities to implement and bugs to fix. This summer,
+I intend to implement some of the most important features and make the design
+more appealing and user-friendly as well.&lt;/p>
+&lt;p>The main deliverables during the GSoC period will be :&lt;/p>
+&lt;ul>
+&lt;li>Config Section
+&lt;ul>
+&lt;li>Implement the panels which have not yet been implemented from the Qt
+application.&lt;/li>
+&lt;li>Enhance the already existing panels and fix the existing inconsistencies.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Mail Section
+&lt;ul>
+&lt;li>Implement the Reply, Reply All and Forward feature in the mail view.&lt;/li>
+&lt;li>Fix the Compose Mail popup and make it usable.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Forums Section
+&lt;ul>
+&lt;li>Implement the remaining features from the Qt app in the forum section.&lt;/li>
+&lt;li>Implement a better layout of the forum and posts view, comment and reply
+feature etc.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Boards and Channel Section
+&lt;ul>
+&lt;li>Implement the remaining features and make them more user-friendly and easy
+to use.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Implement a feature for Configuring and Visualizing own shared files with
+features such as managing shared directories, user permissions etc.&lt;/li>
+&lt;/ul>
+&lt;h2 id="previous-contributions">Previous Contributions&lt;/h2>
+&lt;p>During and before the community bonding period, I contributed and added features
+for the implementation of webui of retroshare. And, The most recent contribution
+I did was the implementation of file search in Files section, which wouldn’t
+have been possible without the help of my mentor &lt;a href="https://github.com/csoler">Cyril Soler&lt;/a>.&lt;/p>
+&lt;p>I have also implemented various other features such as Attachment view for Mail
+section to view all the mail attachments in one place, improving the sidebar
+etc. Likewise, I have also tried to reduce the overall size of the WebUI by
+minifying the files. The PRs I raised until now can be seen &lt;a href="https://github.com/RetroShare/RSNewWebUI/pulls?q=is%3Apr+author%3Azelfroster+">here&lt;/a>.&lt;/p>
+&lt;h2 id="whats-next">What’s Next?&lt;/h2>
+&lt;p>Currently, The community bonding period is going on, and I have made myself a
+bit familiar with my mentors and some fellow members. The mentors are really
+supportive, and I couldn’t have made it to GSoC without my mentor &lt;a href="https://github.com/csoler">Cyril Soler&lt;/a>
+and one more amazing person, &lt;a href="https://github.com/defnax">Defnax&lt;/a>. In addition, I actively participate in
+weekly meetings where I report my progress, discuss different approaches.&lt;/p>
+&lt;p>So, for the first phase which is until the midterm evaluation I have planned to
+work towards the implementation of the first two features listed in the Goals
+and Deliverables section of this blog. It has been an amazing learning
+experience, and I am looking forward to achieving more amazing things this
+summer with Freifunk and Retroshare!&lt;/p>
+&lt;p>Thanks for reading and Have a great day 😃&lt;/p></description></item><item><title>Lets talk a bit about Linux today</title><link>https://zelfroster.com/blog/lets-talk-about-linux/</link><pubDate>Mon, 07 Aug 2023 13:57:46 +0530</pubDate><guid>https://zelfroster.com/blog/lets-talk-about-linux/</guid><description>&lt;p>Hello Folks 👋, Today, I am going to talk a bit about Linux today.&lt;/p>
+&lt;blockquote>
+&lt;p>This is actually an &lt;a href="https://zelfroster.hashnode.dev/introduction-to-linux">old post&lt;/a> which I wrote after I got started with Linux. Just added it here for some content.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="what-is-linux">What is Linux?&lt;/h2>
+&lt;p>Linux is well known as a UNIX like Operating System, but it is just the Linux Kernel plus the software and applications/utilities running over it. The software(s) running on Linux are GNU software in most cases, which is why Linux is also called GNU/Linux.&lt;/p>
+&lt;p>&lt;img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1654070298693/EJ7sKJLy1.png?auto=compress,format&amp;amp;format=webp" alt="kernel">&lt;/p>
+&lt;p>Kernel is the core of an OS which talks to the hardware and makes it work according to the user.
+The Linux Kernel is written in C language and developed by &lt;a href="https://en.wikipedia.org/wiki/Linus_Torvalds">Linus Torvalds&lt;/a> in 1991. He created &lt;a href="https://github.com/torvalds/linux">Linux&lt;/a> as a Free and Open Source replacement for Unix by combining &lt;a href="https://www.gnu.org">GNU&lt;/a> and Linux Kernel. And, Now Linux has become World&amp;rsquo;s Largest Collaborative Development Project in the History of Computing having more than 8000 developers contributing from around the world and containing more than 15 million lines of code.&lt;/p>
+&lt;h2 id="where-is-it-used">Where is it used?&lt;/h2>
+&lt;p>Linux is used all over the world on systems ranging from micro to macro level, It is everywhere. It’s in our phones, cars, refrigerators, televisions, cameras, submarines, robots, missiles and weapons and what not. The world&amp;rsquo;s most popular OS Android is also based on Linux. Many Big companies like Google, Twitter etc use Linux and also the World&amp;rsquo;s Stock exchanges are run by Linux.
+Linux also runs most of the Internet(servers) and even the World&amp;rsquo;s top 500 Supercomputers run Linux on them.&lt;/p>
+&lt;p>Besides all these Linux is used as a daily driver (for everyday purpose) by many developers, tech enthusiasts, geeks, hackers and many more people including me ( I use Arch btw ;-) ). There is a Linux distribution (basically a Linux OS variant) for every usergroup and for various purposes.&lt;/p>
+&lt;h2 id="why-should-you-use-linux">Why should you use Linux?&lt;/h2>
+&lt;p>As a Developer there are much more benefits of using Linux than any other operating system (except Mac OS as it is also Unix based) such as :&lt;/p>
+&lt;ul>
+&lt;li>The biggest advantage is that Linux is free and Open Source which means that the source code is publicly available to everyone and you can see how everything works internally and whenever you face any difficulty or error in an Open Source Linux distro(distribution) you can go through the code and see yourself that where the actual issue is, and you might not even have to worry about it as thousands of developers are contributing in Open Source Softwares thus your issue will be most probably solved in the upcoming updates which are very frequent. On the other hand if you are a Windows user you might have to wait for a long time for the bug to be solved :(.&lt;/li>
+&lt;li>The part which I like the most about Linux is the Linux Terminal, like you can do whatever job you want to do with your OS just by using the Terminal, also you look COOL like a hacker.
+Ahem..
+Terminal is also superior to Windows CMD as most of the CLI apps are natively developed for Linux.&lt;/li>
+&lt;li>Shell Scripting and Automation, with the help of these features we can automate most of the jobs by writing Scripts such as Bash Script, Python Script etc.&lt;/li>
+&lt;li>SSH (Secure SHell), we can ssh into a server hosted on a remote system and do our job remotely.&lt;/li>
+&lt;li>Linux supports almost all of the programming languages so you don&amp;rsquo;t need to worry about availability of software in a new or specific language.&lt;/li>
+&lt;li>Customization, this is another loved feature by most of the Linux Users as you can create whatever look and feel and customize it to your heart&amp;rsquo;s content. There is even a dedicated reddit channel &lt;a href="https://www.reddit.com/r/unixporn/">r/unixporn&lt;/a> for folks who love customizing.&lt;/li>
+&lt;/ul>
+&lt;h2 id="which-distribution-is-good-for-you">Which distribution is good for you?&lt;/h2>
+&lt;p>First let&amp;rsquo;s see what is a Linux Distribution (Distro), A Linux Distro is just a collection of programes + Linux Kernel and that&amp;rsquo;s it, for example - ArchLinux, Ubuntu (Most popular linux distro), Debian, RHEL(Red Hat Enterprise Linux), Fedora, CentOS, LinuxMint, Zorin OS etc. But you might be wondering why there are so many Linux Distros to choose from, and the answer is very simple. Every Linux distro serves a specific purpose such as:&lt;/p>
+&lt;ul>
+&lt;li>Arch Linux is for the advanced and geeky users.&lt;/li>
+&lt;li>Ubuntu is mostly used as a daily driver and also run on server.&lt;/li>
+&lt;li>Debian is the parent Linux Distribution, It is used in Space and also for basic purposes.&lt;/li>
+&lt;li>Kali Linux is specifically made for Hackers, It contains all the tools and utilities required for Hacking.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1654070079433/sWfHM3GCz.png?auto=compress,format&amp;amp;format=webp" alt="distro">&lt;/p>
+&lt;p>If you are new to Linux then you will be recommended to use Ubuntu if you ask anyone in the community, and when you are used to it then you can move to more advanced distros like ArchLinux and Gentoo.&lt;/p>
+&lt;p>And, as for Windows users, you can give a try to Linux by Dual-booting Zorin OS (a distro similar to Windows in look and feel) along with your Windows, use it for some time and then when you start to feel at home you are ready to install any Linux distro.
+Also if you want to get specific Linux Distro to get started then this website will tell you which distro is best for you according to your needs, &lt;a href="https://distrochooser.de/">DistroChooser&lt;/a>.&lt;/p>
+&lt;p>So, That&amp;rsquo;s all for now, Have a Nice Day :)&lt;/p></description></item><item><title>The reason behind making of this website</title><link>https://zelfroster.com/blog/about-the-website/</link><pubDate>Sun, 06 Aug 2023 13:57:30 +0530</pubDate><guid>https://zelfroster.com/blog/about-the-website/</guid><description>&lt;p>This is more like a test post. But I am going to maybe write something here!&lt;/p>
+&lt;h2 id="about-this-website">About this website&lt;/h2>
+&lt;p>I had started making my &lt;a href="https://portfolio-zelfroster.vercel.app">portfolio&lt;/a> back in December 2022, I spent so much time on
+it and It looked so good at that time, but as some time passed It started to
+look ugly to me (&lt;em>don&amp;rsquo;t ask reasons, ohh but you can&amp;rsquo;t ask anything right now any
+ways - Brook, One Piece&lt;/em>).&lt;/p>
+&lt;p>And, I had planned to write some blogs in the blog section of my portfolio but,
+didn&amp;rsquo;t write a single word there. To be Honest, I didn&amp;rsquo;t felt like writing
+anything there.&lt;/p>
+&lt;p>So, I decided to make this website where I can do anything I want and show any
+thing in way which I like and Not to impress people but just to be me. Also, I
+wanted to keep it minimal and remembered this Linux philosophy.&lt;/p>
+&lt;blockquote>
+&lt;p>❝ Do One thing and Do It better ❞ - Linux Philosophy.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="inspiration-for-this-website">Inspiration for this website&lt;/h2>
+&lt;p>I took inspiration for this website from some cool folks. I will list their
+sites:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://manuelmoreale.com/">Manu Moreale&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://bugswriter.com/">Suraj Kushwah&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://mxb.dev/">Max Böck&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="tools-used-to-make-this-website">Tools used to make this website&lt;/h2>
+&lt;p>I used only one tool to build this website, well technically it&amp;rsquo;s 4.
+Aaaaaaaaaaand, It&amp;rsquo;s &lt;a href="https://11ty.dev">11ty&lt;/a>. Yeah, I only used 11ty with some extra packages to
+make this website.&lt;/p>
+&lt;p>I used &lt;a href="https://www.11ty.dev/docs/server-vite/">eleventy-plugin-vite&lt;/a> to run &lt;a href="https://vitejs.dev/">vite&lt;/a> as middleware and also to compile SCSS
+to CSS with the help of &lt;a href="https://sass-lang.com">sass&lt;/a>. And, I also used &lt;a href="https://mozilla.github.io/nunjucks/">NunJucks&lt;/a> as a templating
+language.&lt;/p>
+&lt;p>I found &lt;strong>11ty&lt;/strong> much much better to build a personal website than any other
+JavaScript framework. I am not saying that they are bad or anything but 11ty is
+just simpler and faster.
+Using 11ty I was able to implement features in this website more easily than
+what I used earlier which was Next.js .&lt;/p>
+&lt;p>Specially, this feature, syntax-highlighting in code-blocks.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">// JS code to print hello world
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">&lt;/span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> hello = () =&amp;gt; {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3&lt;/span>&lt;span> console.log(&lt;span style="color:#666;font-style:italic">&amp;#39;Hello World&amp;#39;&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4&lt;/span>&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5&lt;/span>&lt;span>hello()
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This is still a work in progress as I have yet to put some content in here and
+some more information about me.
+I have a lot of features in my mind to implement here, but I am going to stop my
+urge and keep this simple and clean.&lt;/p>
+&lt;p>So, This was it. I will see you soon and Have a Nice Day :)&lt;/p></description></item></channel></rss>

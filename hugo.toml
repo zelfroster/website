@@ -18,6 +18,7 @@ disableKinds = ["RSS", "sitemap"]
 [params]
   author = 'zelfroster'
   description = "Zelfroster's personal site"
+  footer = "{Year} [zelfroster](https://zelfroster.com)."
 [markup]
   [markup.goldmark.renderer]
     unsafe = false
