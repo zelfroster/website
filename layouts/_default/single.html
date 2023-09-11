@@ -5,9 +5,8 @@
       <h1 id="title">{{ .Title }}</h1>
       <div id="meta">
         <p id="date">
-          <b>Posted:</b>
           {{ .Date.Format "Jan 2, 2006" }} &middot;
-          <b id="wordcount">{{ div .WordCount 130 }} minutes read</b>
+          {{ div .WordCount 130 }} minutes read
         </p>
       </div>
     </header>

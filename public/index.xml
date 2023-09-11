@@ -1,4 +1,133 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xml:base="https://zelfroster.com/"><channel><title>Zelfroster</title><link>https://zelfroster.com/</link><description>Recent content on Zelfroster</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 01 Aug 2023 14:11:56 +0530</lastBuildDate><atom:link href="https://zelfroster.com/index.xml" rel="self" type="application/rss+xml"/><item><title>GSoC’23 : Implementation of Web Interface of Retroshare - Part 2</title><link>https://zelfroster.com/blog/gsoc-rswebui-2/</link><pubDate>Thu, 10 Aug 2023 13:58:18 +0530</pubDate><guid>https://zelfroster.com/blog/gsoc-rswebui-2/</guid><description>&lt;p>Hello again folks 👋 ,
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xml:base="https://zelfroster.com/"><channel><title>Zelfroster</title><link>https://zelfroster.com/</link><description>Recent content on Zelfroster</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 01 Aug 2023 14:11:56 +0530</lastBuildDate><atom:link href="https://zelfroster.com/index.xml" rel="self" type="application/rss+xml"/><item><title>GSoC’23: Implementation of Web Interface of Retroshare – Final Report</title><link>https://zelfroster.com/blog/gsoc-rswebui-final/</link><pubDate>Mon, 11 Sep 2023 09:13:43 +0530</pubDate><guid>https://zelfroster.com/blog/gsoc-rswebui-final/</guid><description>&lt;blockquote>
+&lt;p>This is a mirror of the &lt;a href="https://blog.freifunk.net/2023/08/27/gsoc23-implementation-of-web-interface-of-retroshare-final-report/">final report&lt;/a> which I wrote recently on Freifunk.&lt;/p>
+&lt;/blockquote>
+&lt;p>Hello again folks 👋,
+&lt;br />
+My journey in Google Summer of Code has come to an end, and I am excited to
+share all the things I have accomplished during this program and the progress
+done in the Implementation of Web Interface of Retroshare.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-4-1536x762.png" alt="Retroshare Homepage">&lt;/p>
+&lt;h2 id="project-description">Project Description&lt;/h2>
+&lt;h3 id="about-retroshare">About Retroshare&lt;/h3>
+&lt;p>Retroshare provides a decentralized, encrypted connection with maximum security
+between nodes where they can chat, share files, mail, etc. It uses GXS (Generic
+eXchange System) that provides asynchronous distribution, authentication,
+privacy, security of generic data. It is designed to provide maximum security
+and anonymity to its users beyond direct friends. Likewise, it is entirely free
+and open-source software.&lt;/p>
+&lt;p>It is a C++ software program that comprises a headless lib called libretroshare.
+And, this lib helps in making a headless server (retroshare-service), a
+standalone app with a user interface built using Qt, an android client and more.&lt;/p>
+&lt;h3 id="project-goal">Project Goal&lt;/h3>
+&lt;p>The main goal of my project was Implementation of Web Interface of Retroshare in
+which I had to improve the Web UI and add missing features from the Qt
+counterpart of Retroshare. The milestones which I had to achieve during GSoC are
+described below.&lt;/p>
+&lt;h2 id="milestones-achieved">Milestones Achieved&lt;/h2>
+&lt;blockquote>
+&lt;p>You can view all of my contributions at once – &lt;a href="https://github.com/RetroShare/RSNewWebUI/pulls?q=+is%3Apr+author%3Azelfroster+">GitHub Link&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="file-section">File Section&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Implemented &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/74">File Search&lt;/a> feature using JavaScript Proxy which was pending from a long time.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-10-1536x762.png" alt="Retroshare File Search">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Implemented &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/82">feature&lt;/a> to view which chunks are getting downloaded in the
+progress bar and the state of the chunks getting downloaded. Also, fixed the
+Download action buttons and implemented the feature to manage the chunk
+strategy for a file getting downloaded.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-12-1536x762.png" alt="Retroshare File Download">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Implemented the &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/84">Share Manager&lt;/a> feature, which lets you add and manage the
+shared directories and manage different level of access and permissions for
+each directory. It is in progress and will be complete soon.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-13-1536x762.png" alt="RetroShare Share Manager">&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="config-section">Config Section&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Implemented the &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/75">mail config&lt;/a> panel to create and manage all the mail tags.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-16-1536x762.png" alt="RetroShare Mail Config">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Implemented &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/76">features&lt;/a> to set Dynamic DNS and configure Tor/I2P Socks Proxy from
+Web UI and fixed NAT and some other existing options in the network config
+section.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-15-1536x762.png" alt="RetroShare Network Config">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/78">Added&lt;/a> more missing options in files config section from Qt app.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="mail-section">Mail Section&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/80">Improved&lt;/a> and made the mail composer reusable to help user to search and select
+the nodes (contacts) and improved the UI of composer.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-18-1536x762.png" alt="RetroShare Mail Composer">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Implemented &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/80#issuecomment-1639544317">feature&lt;/a> to reply to any mail from Web UI by reusing the mail
+composer.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Implemented &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/72">feature&lt;/a> to view all the Attachments in one place and also to view
+the attachments sent in a mail.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/08/image-19-1536x762.png" alt="RetroShare Mail Attachments">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/80#issuecomment-1639544317">Fixed&lt;/a> mail view and the order of mail in all mail sections.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="forums-section">Forums Section&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/83">Implemented&lt;/a> Caching in Forums section to reduce repeated numerous API calls
+and reuse the already fetched data and invalidate the cache and refetch the
+data again. It is also a WIP.&lt;/li>
+&lt;li>Fixed the bug which was causing infinite calls to the same endpoint and
+freezing or crashing the Web UI.&lt;/li>
+&lt;/ul>
+&lt;p>I also improved the whole User Interface of the Web UI and made it more
+user-friendly. Furthermore, I &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/85">refactored&lt;/a> the directory structure, tidied up the
+repository and optimized the build.&lt;/p>
+&lt;h2 id="other-contributions">Other Contributions&lt;/h2>
+&lt;p>Apart from the contributions in the Web UI, I also contributed to the
+libretroshare where I&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/RetroShare/libretroshare/pull/100">Added code&lt;/a> to generate the jsonapi endpoints for the file section and &lt;a href="https://github.com/RetroShare/libretroshare/pull/98">other
+sections&lt;/a> in Web UI.&lt;/li>
+&lt;li>&lt;a href="https://github.com/RetroShare/libretroshare/pull/103">Implemented&lt;/a> &lt;code>getChunkStrategy()&lt;/code> endpoint in the libretroshare in &lt;code>C++&lt;/code> and also
+added more code to generate other API endpoints.&lt;/li>
+&lt;li>&lt;a href="https://github.com/RetroShare/libretroshare/pull/113">Fixed&lt;/a> MIME type for content-type in HTTP header and added routes for new
+directory structure.&lt;/li>
+&lt;/ul>
+&lt;h2 id="whats-next">What’s Next?&lt;/h2>
+&lt;p>The Web Interface of Retroshare has improved so much since I have undertaken
+this project, and It’s almost ready for release in the next release cycle of
+Retroshare. Still, there is a lot of room for improvement on the Web UI and I
+will keep adding more features in it.
+I will complete all the features which are currently in progress and even after
+GSoC I would love to keep contributing and improving this truly wonderful open
+sourced project created solely for the welfare of society.&lt;/p>
+&lt;h2 id="wrapping-up">Wrapping Up&lt;/h2>
+&lt;p>My journey in GSoC with Retroshare has been an incredible learning experience
+for me. I got to learn so much all thanks to my mentor &lt;a href="https://github.com/csoler">Cyril Soler&lt;/a>, &lt;a href="https://github.com/rottencandy">M. Saud&lt;/a> and
+fellow community members. GSoC has bridged the gap between aspiring open source
+contributors and industry level experts and has enabled folks like me to gain
+experience by working on enterprise level projects under the guidance of
+wonderful people.&lt;/p>
+&lt;p>This summer has turned out to be a pivotal point in my career and has boosted my
+confidence and helped me to strengthen my arsenal by learning new skills,
+gaining hands-on experience and improving my programming skills.&lt;/p>
+&lt;p>As I keep moving forward in my coding journey after this project, I’m excited to
+utilize the knowledge and experience I’ve gained here in future projects. I plan
+to stay engaged in this community after GSoC and My aim is to continue
+contributing actively to the project’s growth and achievements.&lt;/p>
+&lt;p>And, I will see you now in the next blog. Until then, Good Bye : )&lt;/p></description></item><item><title>GSoC’23 : Implementation of Web Interface of Retroshare - Part 2</title><link>https://zelfroster.com/blog/gsoc-rswebui-2/</link><pubDate>Thu, 10 Aug 2023 13:58:18 +0530</pubDate><guid>https://zelfroster.com/blog/gsoc-rswebui-2/</guid><description>&lt;p>Hello again folks 👋 ,
 If this is your first time here, then consider reading &lt;a href="https://blog.freifunk.net/2023/05/22/gsoc23-implementation-of-webui-of-retroshare/">Part 1&lt;/a> of this blog.&lt;/p>
 &lt;blockquote>
 &lt;p>This is a mirror of the &lt;a href="https://blog.freifunk.net/2023/07/08/gsoc23-implementation-of-web-interface-of-retroshare-part-2/">post&lt;/a> which I wrote recently on Freifunk.&lt;/p>
@@ -11,8 +140,8 @@ belts.&lt;/p>
 &lt;h2 id="progress-on-the-webui">Progress on the WebUI&lt;/h2>
 &lt;p>I have been able to improve the Web Interface of Retroshare very much in terms
 of usability and a better UI. All thanks to my mentors and the community
-members.
-&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/Retroshare2-1536x841.png" alt="Retroshare HomePage">
+members.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/Retroshare2-1536x841.png" alt="Retroshare HomePage">
 Here is what the homepage looks right now.&lt;/p>
 &lt;h3 id="file-search-feature">File Search feature&lt;/h3>
 &lt;p>During the start of the Coding Period, I was already working on implementing the
@@ -36,42 +165,42 @@ perfect opportunity to learn something new.&lt;/p>
 check for any change in the objects made using the handler defined in
 &lt;code>eventQueue&lt;/code>. And, then I could manually trigger a re-render using &lt;code>m.redraw()&lt;/code> in
 mithril.js to update the results in the UI.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-js" data-lang="js">&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">// Custom Proxy code
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">&lt;/span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> createArrayProxy = (arr, onChange) =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> &lt;span style="font-weight:bold;text-decoration:underline">new&lt;/span> &lt;span style="font-weight:bold;font-style:italic">Proxy&lt;/span>(arr, {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4&lt;/span>&lt;span> set: (target, property, value, reciever) =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> success = Reflect.set(target, property, value, reciever);
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">if&lt;/span> (success &amp;amp;&amp;amp; onChange) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7&lt;/span>&lt;span> onChange();
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8&lt;/span>&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> success;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10&lt;/span>&lt;span> },
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11&lt;/span>&lt;span> });
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12&lt;/span>&lt;span>};
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13&lt;/span>&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14&lt;/span>&lt;span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> createProxy = (obj, onChange) =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> &lt;span style="font-weight:bold;text-decoration:underline">new&lt;/span> &lt;span style="font-weight:bold;font-style:italic">Proxy&lt;/span>(obj, {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16&lt;/span>&lt;span> get: (target, property, reciever) =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> value = Reflect.get(target, property, reciever);
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> &lt;span style="font-weight:bold;text-decoration:underline">typeof&lt;/span> value === &lt;span style="color:#666;font-style:italic">&amp;#34;object&amp;#34;&lt;/span> &amp;amp;&amp;amp; value !== &lt;span style="font-weight:bold;text-decoration:underline">null&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19&lt;/span>&lt;span> ? &lt;span style="font-weight:bold;font-style:italic">Array&lt;/span>.isArray(value)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20&lt;/span>&lt;span> ? createArrayProxy(value, onChange)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21&lt;/span>&lt;span> : createProxy(value, onChange)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22&lt;/span>&lt;span> : value;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23&lt;/span>&lt;span> },
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24&lt;/span>&lt;span> set: (target, property, value, reciever) =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> success = Reflect.set(target, property, value, reciever);
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">if&lt;/span> (success &amp;amp;&amp;amp; onChange) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27&lt;/span>&lt;span> onChange();
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28&lt;/span>&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29&lt;/span>&lt;span> &lt;span style="font-weight:bold;text-decoration:underline">return&lt;/span> success;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30&lt;/span>&lt;span> },
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31&lt;/span>&lt;span> });
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32&lt;/span>&lt;span>};
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33&lt;/span>&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34&lt;/span>&lt;span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> proxyObj = createProxy({}, () =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35&lt;/span>&lt;span> m.redraw();
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36&lt;/span>&lt;span>});
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-js" data-lang="js">&lt;span class="line">&lt;span class="ln"> 1&lt;/span>&lt;span class="cl">&lt;span class="c1">// Custom Proxy code
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 2&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">createArrayProxy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 3&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Proxy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 4&lt;/span>&lt;span class="cl"> &lt;span class="nx">set&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">property&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reciever&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 5&lt;/span>&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">success&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Reflect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">property&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reciever&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 6&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">success&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 7&lt;/span>&lt;span class="cl"> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 8&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln"> 9&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">success&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">10&lt;/span>&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">11&lt;/span>&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">12&lt;/span>&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">13&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">14&lt;/span>&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">createProxy&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">obj&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">15&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Proxy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">obj&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">16&lt;/span>&lt;span class="cl"> &lt;span class="nx">get&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">property&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reciever&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">17&lt;/span>&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Reflect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">property&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reciever&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">18&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="k">typeof&lt;/span> &lt;span class="nx">value&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;object&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">value&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="kc">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">19&lt;/span>&lt;span class="cl"> &lt;span class="o">?&lt;/span> &lt;span class="nb">Array&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">isArray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">20&lt;/span>&lt;span class="cl"> &lt;span class="o">?&lt;/span> &lt;span class="nx">createArrayProxy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">21&lt;/span>&lt;span class="cl"> &lt;span class="o">:&lt;/span> &lt;span class="nx">createProxy&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">22&lt;/span>&lt;span class="cl"> &lt;span class="o">:&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">23&lt;/span>&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">24&lt;/span>&lt;span class="cl"> &lt;span class="nx">set&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">property&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reciever&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">25&lt;/span>&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">success&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Reflect&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">property&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reciever&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">26&lt;/span>&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">success&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">27&lt;/span>&lt;span class="cl"> &lt;span class="nx">onChange&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">28&lt;/span>&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">29&lt;/span>&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">success&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">30&lt;/span>&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">31&lt;/span>&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">32&lt;/span>&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">33&lt;/span>&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">34&lt;/span>&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">proxyObj&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">createProxy&lt;/span>&lt;span class="p">({},&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">35&lt;/span>&lt;span class="cl"> &lt;span class="nx">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">redraw&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">36&lt;/span>&lt;span class="cl">&lt;span class="p">});&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>So, after some head banging and googling, I was able to implement this feature.
 Furthermore, I improved the small issues in next iterations. You can see the
 merged PR &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/74">here&lt;/a>.&lt;/p>
@@ -80,19 +209,19 @@ This is how the File Search looks currently.&lt;/p>
 &lt;h3 id="config-mail">Config Mail&lt;/h3>
 &lt;p>After that, I started working on the config section, in which I implemented the
 feature to create and manage custom tags for mails in the mail config. The PR I
-raised is &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/75">here&lt;/a>.
-&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-9-1536x841.png" alt="RetroShare Config Mail">&lt;/p>
+raised is &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/75">here&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-9-1536x841.png" alt="RetroShare Config Mail">&lt;/p>
 &lt;h3 id="config-network">Config Network&lt;/h3>
 &lt;p>Then, I implemented some missing features in existing section of Config section.
 In the Network config, some options weren’t working. So, after discussing with
 my mentor, I implemented the Hidden Network Configuration for TOR/I2P Socks
-Proxy &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/76">here&lt;/a>.
-&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-10-1536x841.png" alt="RetroShare Config Network">&lt;/p>
+Proxy &lt;a href="https://github.com/RetroShare/RSNewWebUI/pull/76">here&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-10-1536x841.png" alt="RetroShare Config Network">&lt;/p>
 &lt;h3 id="config-files">Config Files&lt;/h3>
 &lt;p>I implemented the missing options as well as fixed the options which were not
 working in the config files section also for this, I implemented the
-&lt;code>getQueueSize()&lt;/code> function in libretroshare.
-&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-12-1024x560.png" alt="RetroShare Config Files">&lt;/p>
+&lt;code>getQueueSize()&lt;/code> function in libretroshare.&lt;/p>
+&lt;p>&lt;img src="https://blog.freifunk.net/wp-content/uploads/2023/07/image-12-1024x560.png" alt="RetroShare Config Files">&lt;/p>
 &lt;p>By this time, I was also getting a hang of How things were working internally in
 the &lt;a href="https://github.com/RetroShare/libretroshare">libretroshare&lt;/a>. And, my mentor &lt;a href="https://github.com/csoler">Cyril Soler&lt;/a> motivated me and supported me to
 start writing code in libretroshare for Doxygen to generate the JSON API for the
@@ -145,7 +274,7 @@ the timeline which are :&lt;/p>
 important issues and necessary features for the upcoming release of the webui.&lt;/p>
 &lt;p>Now, I will see you in the next and final blog of this GSoC series.&lt;/p>
 &lt;p>Thanks for reading and have a great day : )&lt;/p></description></item><item><title>GSoC’23 : Implementation of Web Interface of Retroshare</title><link>https://zelfroster.com/blog/gsoc-rswebui-1/</link><pubDate>Wed, 09 Aug 2023 13:58:16 +0530</pubDate><guid>https://zelfroster.com/blog/gsoc-rswebui-1/</guid><description>&lt;p>Hello folks 👋
-&lt;!-- raw HTML omitted -->
+&lt;br/>
 My proposal has been selected in GSoC by Freifunk for the implementation of Web
 Interface of Retroshare, and I am going to write a bit about it.&lt;/p>
 &lt;blockquote>
@@ -294,11 +423,11 @@ just simpler and faster.
 Using 11ty I was able to implement features in this website more easily than
 what I used earlier which was Next.js .&lt;/p>
 &lt;p>Specially, this feature, syntax-highlighting in code-blocks.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">// JS code to print hello world
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2&lt;/span>&lt;span>&lt;span style="color:#888;font-style:italic">&lt;/span>&lt;span style="font-weight:bold;text-decoration:underline">const&lt;/span> hello = () =&amp;gt; {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3&lt;/span>&lt;span> console.log(&lt;span style="color:#666;font-style:italic">&amp;#39;Hello World&amp;#39;&lt;/span>);
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4&lt;/span>&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5&lt;/span>&lt;span>hello()
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="ln">1&lt;/span>&lt;span class="cl">&lt;span class="c1">// JS code to print hello world
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">2&lt;/span>&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">hello&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">3&lt;/span>&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello World&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">4&lt;/span>&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="ln">5&lt;/span>&lt;span class="cl">&lt;span class="nx">hello&lt;/span>&lt;span class="p">()&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>This is still a work in progress as I have yet to put some content in here and
 some more information about me.
 I have a lot of features in my mind to implement here, but I am going to stop my

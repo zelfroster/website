@@ -8,7 +8,11 @@
   <h1>
     Zelfroster &nbsp;
     <span>
-      <a href="https://github.com/zelfroster" target="_blank" aria-label="GitHub">
+      <a
+        href="https://github.com/zelfroster"
+        target="_blank"
+        aria-label="GitHub"
+      >
         <svg
           width="20px"
           height="20px"
@@ -43,7 +47,11 @@
       </a> </span
     ><span></span
     ><span>
-      <a href="https://twitter.com/zelfroster" target="_blank" aria-label="Twitter">
+      <a
+        href="https://twitter.com/zelfroster"
+        target="_blank"
+        aria-label="Twitter"
+      >
         <svg
           width="22px"
           height="22px"
@@ -78,13 +86,13 @@
     <h2>Latest Articles</h2>
     {{ range (readDir "content/") }} {{ if .IsDir }}
     <ul>
-      {{ $path := printf "%s/" .Name }} {{ range first 5 (where (where
+      {{ $path := printf "%s/" .Name }} {{ range first 4 (where (where
       $.Site.RegularPages "Type" "blog") "File.Dir" $path) }}
       <li>
         <div class="article-item">
           <a href="{{.Permalink}}">{{.Title}}</a>
           <i class="article-date" style="margin-left: auto">
-            {{ "--" | markdownify }} {{ .Date.Format "2 August, 2006" }}
+            {{ "--" | markdownify }} {{ .Date.Format "2 January 2006" }}
           </i>
         </div>
       </li>

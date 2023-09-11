@@ -21,8 +21,8 @@ disableKinds = ["RSS", "sitemap"]
   footer = "{Year} [zelfroster](https://zelfroster.com)."
 [markup]
   [markup.goldmark.renderer]
-    unsafe = false
+    unsafe = true
   [markup.highlight]
+    noClasses = false
     lineNos = true
     lineNumbersInTable = false
-    style = 'algol'

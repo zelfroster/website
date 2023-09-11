@@ -20,6 +20,7 @@ belts.
 I have been able to improve the Web Interface of Retroshare very much in terms
 of usability and a better UI. All thanks to my mentors and the community
 members.
+
 ![Retroshare HomePage](https://blog.freifunk.net/wp-content/uploads/2023/07/Retroshare2-1536x841.png)
 Here is what the homepage looks right now.
 
@@ -101,6 +102,7 @@ This is how the File Search looks currently.
 After that, I started working on the config section, in which I implemented the
 feature to create and manage custom tags for mails in the mail config. The PR I
 raised is [here](https://github.com/RetroShare/RSNewWebUI/pull/75).
+
 ![RetroShare Config Mail](https://blog.freifunk.net/wp-content/uploads/2023/07/image-9-1536x841.png)
 
 ### Config Network
@@ -109,6 +111,7 @@ Then, I implemented some missing features in existing section of Config section.
 In the Network config, some options weren’t working. So, after discussing with
 my mentor, I implemented the Hidden Network Configuration for TOR/I2P Socks
 Proxy [here](https://github.com/RetroShare/RSNewWebUI/pull/76).
+
 ![RetroShare Config Network](https://blog.freifunk.net/wp-content/uploads/2023/07/image-10-1536x841.png)
 
 ### Config Files
@@ -116,6 +119,7 @@ Proxy [here](https://github.com/RetroShare/RSNewWebUI/pull/76).
 I implemented the missing options as well as fixed the options which were not
 working in the config files section also for this, I implemented the
 `getQueueSize()` function in libretroshare.
+
 ![RetroShare Config Files](https://blog.freifunk.net/wp-content/uploads/2023/07/image-12-1024x560.png)
 
 By this time, I was also getting a hang of How things were working internally in
