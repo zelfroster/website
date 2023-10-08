@@ -5,7 +5,7 @@
     src="https://avatars.githubusercontent.com/u/93514460?s=400&u=fb0bac0b3abc8e81cf5b0b4a531f65dc51d2eb6a&v=4"
     alt="zelfroster's picture"
   />
-  <h1>
+  <h1 class="title">
     Zelfroster &nbsp;
     <span>
       <a
@@ -78,12 +78,12 @@
       </a>
     </span>
   </h1>
-  <b>💻 Software Engineer | 🐧 Linux | ⛩️ Anime</b>
+  <b>💻 Software Engineer | 🐧 Linux | 🔓 Open Source</b>
   <i style="display: block; font-family: serif">
     “An idiot admires complexity, a genius admires simplicity...” - Terry Davis
   </i>
   <section>
-    <h2>Latest Articles</h2>
+    <h2 class="latest-articles">Latest Articles</h2>
     {{ range (readDir "content/") }} {{ if .IsDir }}
     <ul>
       {{ $path := printf "%s/" .Name }} {{ range first 4 (where (where
@@ -138,6 +138,10 @@
         <li>
           Text Editor / IDE &hyphen;
           <a href="https://neovim.io/" target="_blank">Neovim</a>
+        </li>
+        <li>
+          Email Client &hyphen;
+          <a href="https://www.betterbird.eu/" target="_blank">Betterbird</a>
         </li>
       </ul>
     </details>
