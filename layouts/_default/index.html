@@ -84,10 +84,8 @@
   </i>
   <section>
     <h2 class="latest-articles">Latest Articles</h2>
-    {{ range (readDir "content/") }} {{ if .IsDir }}
     <ul>
-      {{ $path := printf "%s/" .Name }} {{ range first 4 (where (where
-      $.Site.RegularPages "Type" "blog") "File.Dir" $path) }}
+      {{ range first 4 .Site.RegularPages }}
       <li>
         <div class="article-item">
           <a href="{{.Permalink}}">{{.Title}}</a>
@@ -98,7 +96,6 @@
       </li>
       {{ end }}
     </ul>
-    {{ end }} {{ end }}
   </section>
   <section class="fancy-box">
     <div>

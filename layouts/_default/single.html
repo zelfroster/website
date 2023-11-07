@@ -10,6 +10,12 @@
         </p>
       </div>
     </header>
+    {{ if (isset .Params "cover") }} 
+      {{ $pageCover := .Param "cover" }}
+      {{ with (.Resources.GetMatch (.Param "cover")) }} 
+      {{ $pageCover = .RelPermalink }} {{ end }}
+        <img src="{{ $pageCover | absURL }}" alt="">
+    {{ end }}
     {{ with .Content }}
     {{ . | replaceRE "(<h[2-4] id=\"([^\"]+)\".+)(</h[2-4]+>)" `${1}<a
       href="#${2}" class="hanchor" ariaLabel="Anchor"> # &nbsp;</a>${3}`| safeHTML }}

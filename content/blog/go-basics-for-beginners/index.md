@@ -2,6 +2,7 @@
 title: "Go Essentials: A Beginner's Guide to the world of Golang"
 date: 2023-09-29T20:06:49+05:30
 description: "In this blog, we will learn about the basics of Golang. Join me in this journey to learn about the amazing world of Go."
+cover: "cover.png"
 ---
 
 Hello everyone 👋, Today I have something interesting for you.
