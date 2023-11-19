@@ -3,12 +3,10 @@
   <article id="content">
     <header class="article-meta">
       <h1 id="article-title">{{ .Title }}</h1>
-      <div id="meta">
-        <p id="date">
-          {{ .Date.Format "Jan 2, 2006" }} &middot;
-          {{ div .WordCount 130 }} minutes read
-        </p>
-      </div>
+      <p id="date">
+        {{ .Date.Format "Jan 2, 2006" }} &middot;
+        {{ div .WordCount 130 }} minutes read
+      </p>
     </header>
     {{ with .Content }}
     {{ . | replaceRE "(<h[2-4] id=\"([^\"]+)\".+)(</h[2-4]+>)" `${1}<a
