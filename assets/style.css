@@ -1,13 +1,25 @@
 html {
   scroll-behavior: smooth;
   scroll-padding: 1rem;
+  font-size: 105%;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  line-height: 1.6;
 }
 body {
   max-width: 800px;
   margin: auto;
   padding: 1rem;
-  font-family: Helvetica, sans-serif;
-  line-height: 1.5;
   min-height: 95vh;
   display: flex;
   flex-direction: column;
@@ -15,17 +27,52 @@ body {
 nav {
   margin-top: 0.5rem;
   font-family: monospace;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 nav a {
   padding: 0.175rem 0.275rem;
+  font-size: 0.875rem;
 }
-.article-meta,
+#date {
+  font-family: serif;
+  font-size: 16px;
+}
+.article-meta {
+  margin-bottom: 2.5rem;
+}
+.article-meta.article-meta,
 footer,
 nav {
   text-align: center;
 }
-.title {
-  font-size: 1.1rem;
+#article-title {
+  margin-bottom: 0;
+  font-weight: 900;
+}
+article p,
+article li {
+  font-size: 18px;
+}
+article blockquote,
+article p code,
+article li code,
+article pre {
+  font-size: 14px;
+}
+article li {
+  margin-bottom: 8px;
+}
+.title .socials {
+  display: inline-flex;
+  gap: 6px;
+}
+.title .socials a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 22px;
+  padding: 2px;
 }
 footer {
   font-family: monospace;
@@ -52,6 +99,24 @@ pre {
 pre code {
   padding: 0;
 }
+h1 {
+  font-size: 1.875rem;
+  padding: 0 1rem;
+}
+h1.title {
+  margin-bottom: 0.5rem;
+  padding: 0;
+}
+.recent-writings {
+  margin: 2.5rem 0;
+}
+.recent-writings h2 {
+  transform: translateX(0);
+  margin-bottom: 0;
+}
+.recent-writings ul {
+  margin-top: 0.5rem;
+}
 a {
   color: #0060f0;
   text-underline-offset: 2px;
@@ -59,15 +124,27 @@ a {
 a:hover {
   text-decoration: none;
 }
-h1 > a,
+h2,
+h3,
+h4 {
+  margin-top: 2rem;
+  margin-bottom: 0;
+  position: relative;
+  transform: translateX(1.25rem);
+}
+h5 {
+  transform: translateX(1.25rem);
+}
 h2 > a,
-h3 > a {
-  display: none;
+h3 > a,
+h4 > a {
+  position: absolute;
+  left: -1.25rem;
   text-decoration: none;
 }
-h1:hover > a,
 h2:hover > a,
-h3:hover > a {
+h3:hover > a,
+h4:hover > a {
   display: inline;
 }
 ul {
@@ -87,18 +164,16 @@ blockquote {
   background: #f2f2f2;
   border-left: 4px solid #0080f0;
   padding: 0.125rem 0.5rem;
-  margin: 0;
+  margin: 1rem 0 0;
 }
 blockquote p {
   margin: 0.25rem;
 }
 table {
-  margin: 0.25rem 0;
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
-}
-table thead th {
-  border-bottom: 1px solid #ddd;
+  margin: 0.5rem 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  font-size: 0.875rem;
 }
 td,
 th {
@@ -115,7 +190,8 @@ article header {
 .zel-avatar {
   float: right;
   min-width: 3rem;
-  max-width: 15%;
+  max-width: 12%;
+  margin-top: 0.5rem;
   border-radius: 50%;
   border: 5px solid white;
   box-shadow: 0 4px 5px 2px #eee;
@@ -131,53 +207,81 @@ article header {
 summary {
   margin-top: 1rem;
 }
+#dark-mode-toggle {
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(2px);
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+/* Dark Mode */
+.dark {
+  background: #1a1c1f;
+  color: #dadddf;
+}
+.dark table {
+  border-color: #666;
+}
+.dark table tr:nth-child(even) {
+  background-color: #22252a;
+}
+.dark table thead {
+  background-color: #30333a;
+}
+.dark p,
+.dark li {
+  color: #babdbf;
+}
+.dark a {
+  color: #24d1ac;
+}
+.dark .zel-avatar {
+  border-color: #dadddf22;
+  box-shadow: none;
+}
+.dark .article-meta,
+.dark .fancy-box,
+.dark pre {
+  border: 1px solid #dadddf55;
+  box-shadow: none;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.dark .article-meta {
+  border: 1px solid #dadddfaa;
+  box-shadow: 5px 5px 5px #dadddf11;
+}
+.dark blockquote {
+  background: #26282e;
+  border-left: 4px solid #24d1ac;
+}
+.dark pre {
+  background: #22252a !important;
+}
+.dark code {
+  background: #30333a;
+}
+.dark hr {
+  color: #4a5458;
+}
+.dark svg path {
+  stroke: #dadddf;
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .zel-avatar {
     border-width: 3px;
     transform: translateY(0.5rem);
+    margin-top: 0;
   }
   .article-item {
     padding: 0.25rem 0;
   }
   .article-date {
     display: none;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  html {
-    background: #1e2326;
-    color: #d5cebf;
-  }
-  p {
-    color: #c5beaf;
-  }
-  a {
-    color: #24d1ac;
-  }
-  .zel-avatar {
-    border-color: #d5cebf22;
-    box-shadow: none;
-  }
-  .fancy-box,
-  .article-meta,
-  pre {
-    border: 1px solid #d5cebf55;
-    box-shadow: none;
-  }
-  blockquote {
-    background: #272e33;
-    border-left: 4px solid #24d1ac;
-  }
-  pre {
-    background: #272e33 !important;
-  }
-  code {
-    background: #2e383c;
-  }
-  hr {
-    color: #7a8478;
-  }
-  svg path {
-    stroke: #d5cebf;
   }
 }

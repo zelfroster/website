@@ -1,13 +1,15 @@
 {{ define "main" }}
 <main>
+  {{ with resources.Get "avatar.webp" }}
   <img
     class="zel-avatar"
-    src="https://avatars.githubusercontent.com/u/93514460?s=400&u=fb0bac0b3abc8e81cf5b0b4a531f65dc51d2eb6a&v=4"
+    src="{{ .RelPermalink }}"
     alt="zelfroster's picture"
   />
+  {{ end }}
   <h1 class="title">
-    Zelfroster &nbsp;
-    <span>
+    <span>Zelfroster &nbsp;</span>
+    <div class="socials">
       <a
         href="https://github.com/zelfroster"
         target="_blank"
@@ -44,48 +46,24 @@
             ></path>
           </g>
         </svg>
-      </a> </span
-    ><span></span
-    ><span>
+      </a>
       <a
         href="https://twitter.com/zelfroster"
         target="_blank"
         aria-label="Twitter"
       >
-        <svg
-          width="22px"
-          height="22px"
-          viewBox="0 0 192 192"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          style="transform: translateY(3px)"
-        >
-          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></g>
-          <g id="SVGRepo_iconCarrier">
-            <path
-              stroke="#1e2326"
-              stroke-linejoin="round"
-              stroke-width="12"
-              d="M126 38c-14.359 0-26 11.64-26 26a25.89 25.89 0 0 0 2.929 12C72 76 56 70 30 46c0 39.5 10 66 34 81-8 11.2-29.333 14.333-42 14.5 0 0 14 13.5 46 13.5 56 0 84-46.783 84-91l18-20h-27.386A25.892 25.892 0 0 0 126 38Z"
-            ></path>
-          </g>
-        </svg>
+        𝕏
       </a>
-    </span>
+    </div>
   </h1>
-  <b>💻 Software Engineer | 🐧 Linux | 🔓 Open Source</b>
-  <i style="display: block; font-family: serif">
-    “An idiot admires complexity, a genius admires simplicity...” - Terry Davis
-  </i>
-  <section>
-    <h2 class="latest-articles">Latest Articles</h2>
+  <i style="font-family: serif"
+    >Crafting <u>Innovative</u> experiences from <u>Pixels</u> to
+    <u>Performance</u>.</i
+  >
+  <section class="recent-writings">
+    <h2>Recent Writings</h2>
     <ul>
-      {{ range first 4 .Site.RegularPages }}
+      {{ range first 5 .Site.RegularPages }}
       <li>
         <div class="article-item">
           <a href="{{.Permalink}}">{{.Title}}</a>
@@ -134,7 +112,8 @@
         </li>
         <li>
           Text Editor / IDE &hyphen;
-          <a href="https://neovim.io/" target="_blank">Neovim</a>
+          <a href="https://neovim.io/" target="_blank">Neovim</a> /
+          <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
         </li>
         <li>
           Email Client &hyphen;

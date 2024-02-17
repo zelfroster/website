@@ -1,5 +1,48 @@
 <footer>
   <hr />
   <span style="font-family: sans-serif">&copy;</span> {{ with
-  .Site.Params.footer }} {{ replace . "{Year}" now.Year | markdownify}} {{ end }}
+  .Site.Params.footer }} {{ replace . "{Year}" now.Year | markdownify}} {{ end
+  }}
+  <!-- <svg -->
+  <!--   width="20px" -->
+  <!--   height="20px" -->
+  <!--   viewBox="0 0 24 24" -->
+  <!--   fill="none" -->
+  <!--   xmlns="http://www.w3.org/2000/svg" -->
+  <!-- > -->
+  <!--   <path -->
+  <!--     d="M4 5C4 4.44772 4.44772 4 5 4C13.2843 4 20 10.7157 20 19C20 19.5523 19.5523 20 19 20C18.4477 20 18 19.5523 18 19C18 11.8203 12.1797 6 5 6C4.44772 6 4 5.55228 4 5ZM4 10C4 9.44772 4.44772 9 5 9C10.5228 9 15 13.4772 15 19C15 19.5523 14.5523 20 14 20C13.4477 20 13 19.5523 13 19C13 14.5817 9.41828 11 5 11C4.44772 11 4 10.5523 4 10ZM6.5 20C7.88071 20 9 18.8807 9 17.5C9 16.1193 7.88071 15 6.5 15C5.11929 15 4 16.1193 4 17.5C4 18.8807 5.11929 20 6.5 20Z" -->
+  <!--     fill="#000000" -->
+  <!--   /> -->
+  <!-- </svg> -->
+  <script>
+    const switcher = document.getElementById("dark-mode-toggle");
+    function toggleDarkMode() {
+      const isDarkMode = localStorage.getItem("darkMode");
+      if (
+        isDarkMode === null &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        localStorage.setItem("darkMode", false);
+        document.documentElement.classList.remove("dark");
+        switcher.classList.add("theme-toggle--toggled");
+      } else if (isDarkMode === null || isDarkMode === "false") {
+        localStorage.setItem("darkMode", true);
+        document.documentElement.classList.add("dark");
+        switcher.classList.remove("theme-toggle--toggled");
+      } else {
+        localStorage.setItem("darkMode", false);
+        document.documentElement.classList.remove("dark");
+        switcher.classList.add("theme-toggle--toggled");
+      }
+    }
+    switcher.addEventListener("click", toggleDarkMode);
+    if (
+      localStorage.getItem("darkMode") === "true" ||
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      document.documentElement.classList.add("dark");
+      switcher.classList.remove("theme-toggle--toggled");
+    }
+  </script>
 </footer>

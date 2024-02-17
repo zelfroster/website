@@ -1,6 +1,6 @@
 ---
 title: "Lets talk a bit about Linux today"
-date: 2023-08-07T13:57:46+05:30
+date: 2023-05-20T13:57:46+05:30
 description: "No Description"
 ---
 
