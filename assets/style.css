@@ -47,6 +47,9 @@ footer,
 nav {
   text-align: center;
 }
+.tagline {
+  font-family: serif;
+}
 #article-title {
   margin-bottom: 0;
   font-weight: 900;
@@ -215,7 +218,6 @@ summary {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(2px);
   padding: 4px 8px;
   cursor: pointer;
 }
@@ -292,5 +294,11 @@ summary {
   }
   .title .socials a {
     padding: 2px 6px;
+  }
+  .desktop-only {
+    display: none;
+  }
+  .tagline {
+    font-size: 14px;
   }
 }
