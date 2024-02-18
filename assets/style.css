@@ -42,7 +42,6 @@ nav a {
 .article-meta {
   margin-bottom: 2.5rem;
 }
-.article-meta.article-meta,
 footer,
 nav {
   text-align: center;
@@ -51,6 +50,8 @@ nav {
   font-family: serif;
 }
 #article-title {
+  font-size: 2.25rem;
+  line-height: 2.75rem;
   margin-bottom: 0;
   font-weight: 900;
 }
@@ -87,7 +88,6 @@ hr {
   border-style: dashed;
   color: #ddd;
 }
-.article-meta,
 .fancy-box,
 pre {
   border: 1px solid #ddd;
@@ -107,7 +107,11 @@ pre code {
 }
 h1 {
   font-size: 1.875rem;
-  padding: 0 1rem;
+  line-height: 2.25rem;
+  text-wrap: pretty;
+}
+#date {
+  color: #7a7d7f;
 }
 h1.title {
   margin-bottom: 0.5rem;
@@ -199,7 +203,7 @@ article header {
   max-width: 12%;
   margin-top: 0.5rem;
   border-radius: 50%;
-  border: 5px solid white;
+  border: 5px solid #fff;
   box-shadow: 0 4px 5px 2px #eee;
 }
 .article-item {
@@ -221,8 +225,6 @@ summary {
   padding: 4px 8px;
   cursor: pointer;
 }
-
-/* Dark Mode */
 .dark {
   background: #1a1c1f;
   color: #dadddf;
@@ -247,17 +249,12 @@ summary {
   border-color: #dadddf22;
   box-shadow: none;
 }
-.dark .article-meta,
 .dark .fancy-box,
 .dark pre {
   border: 1px solid #dadddf55;
   box-shadow: none;
   padding: 1rem;
   overflow-x: auto;
-}
-.dark .article-meta {
-  border: 1px solid #dadddfaa;
-  box-shadow: 5px 5px 5px #dadddf11;
 }
 .dark blockquote {
   background: #26282e;
@@ -275,13 +272,17 @@ summary {
 .dark svg path {
   stroke: #dadddf;
 }
-
-/* Mobile */
 @media (max-width: 480px) {
   .zel-avatar {
     border-width: 3px;
     transform: translateY(0.5rem);
     margin-top: 0;
+  }
+  #article-title {
+    font-size: 1.75rem;
+    line-height: 1.75rem;
+    padding: 0;
+    text-wrap: pretty;
   }
   .article-item {
     padding: 0.25rem 0;
@@ -299,6 +300,12 @@ summary {
     display: none;
   }
   .tagline {
+    font-size: 14px;
+  }
+  article blockquote p {
+    font-size: 14px;
+  }
+  #date {
     font-size: 14px;
   }
 }
