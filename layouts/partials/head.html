@@ -63,8 +63,10 @@ absURL }}"> {{ end }} {{ end }}
 <!-- {{ with resources.Get "style.css" }} -->
 <!-- <link rel="stylesheet" href="{{ .RelPermalink }}" /> -->
 <!-- {{ end }} -->
-<!-- <style type="text/css" media="screen"> -->
-<!--   {{ partial "css/syntax-light.css" . | safeCSS }} -->
-<!--   {{ partial "css/syntax-dark.css" . | safeCSS }} -->
-<!-- </style> -->
+<!-- {{ with resources.Get "syntax-light.css" }} -->
+<!-- <link rel="stylesheet" href="{{ .RelPermalink }}" /> -->
+<!-- {{ end }} -->
+<!-- {{ with resources.Get "syntax-dark.css" }} -->
+<!-- <link rel="stylesheet" href="{{ .RelPermalink }}" /> -->
+<!-- {{ end }} -->
 <!----------------------------- For Dev Purpose ------------------------------->

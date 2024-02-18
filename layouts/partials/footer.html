@@ -15,34 +15,4 @@
   <!--     fill="#000000" -->
   <!--   /> -->
   <!-- </svg> -->
-  <script>
-    const switcher = document.getElementById("dark-mode-toggle");
-    function toggleDarkMode() {
-      const isDarkMode = localStorage.getItem("darkMode");
-      if (
-        isDarkMode === null &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches
-      ) {
-        localStorage.setItem("darkMode", false);
-        document.documentElement.classList.remove("dark");
-        switcher.classList.add("theme-toggle--toggled");
-      } else if (isDarkMode === null || isDarkMode === "false") {
-        localStorage.setItem("darkMode", true);
-        document.documentElement.classList.add("dark");
-        switcher.classList.remove("theme-toggle--toggled");
-      } else {
-        localStorage.setItem("darkMode", false);
-        document.documentElement.classList.remove("dark");
-        switcher.classList.add("theme-toggle--toggled");
-      }
-    }
-    switcher.addEventListener("click", toggleDarkMode);
-    if (
-      localStorage.getItem("darkMode") === "true" ||
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      document.documentElement.classList.add("dark");
-      switcher.classList.remove("theme-toggle--toggled");
-    }
-  </script>
 </footer>

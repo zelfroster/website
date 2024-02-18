@@ -50,4 +50,25 @@
     </div>
   </nav>
   <hr />
+  <script>
+    const switcher = document.getElementById("dark-mode-toggle");
+    function toggleDarkMode() {
+      const isDarkMode = JSON.parse(localStorage.getItem("darkMode"));
+      localStorage.setItem("darkMode", !isDarkMode);
+      document.documentElement.classList.toggle("dark");
+      switcher.classList.toggle("theme-toggle--toggled");
+    }
+    switcher.addEventListener("click", toggleDarkMode);
+    // Run at initial load
+    if (
+      localStorage.getItem("darkMode") === "true" ||
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      localStorage.setItem("darkMode", true);
+      document.documentElement.classList.add("dark");
+      switcher.classList.remove("theme-toggle--toggled");
+    } else {
+      localStorage.setItem("darkMode", false);
+    }
+  </script>
 </header>
